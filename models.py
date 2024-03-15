@@ -139,7 +139,7 @@ class Comment(models.Model):
 
 @receiver(m2m_changed, sender=Post.postCategory.through)
 def notify_subscribers(sender, instance, action, **kwargs):
-     if action == "post_add":  # отправка уведомления только при добавлении категорий.
+     if action == "post_add":
           print(f"notify_subscribers вызвали публикацию id={instance.id}")
      if instance.id:
              print("Сообщение создано, отправка писем")
@@ -153,7 +153,7 @@ def notify_subscribers(sender, instance, action, **kwargs):
                              send_mail(
                                  'Новый пост в категории, на которую вы подписаны',
                                  f'Посмотреть можно здесь: http://127.0.0.1:8000/news/{instance.id}',
-                                 'AndreyTestSF@yandex.ru',
+                                 'example@yandex.ru',
                                 [subscriber.user.email],
                                  )
                          else:
